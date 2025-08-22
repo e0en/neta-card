@@ -1199,34 +1199,31 @@ const SushiFlashcards = () => {
         {/* Statistics Page */}
         {showStatsPage ? (
           <div className="mb-8" onClick={(e) => e.stopPropagation()}>
-            <div className="bg-white rounded-xl shadow-lg border-2 border-gray-200 p-6">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-800">카드 학습 통계</h2>
-                <div className="flex space-x-2">
-                  <button
-                    onClick={() => setSeasonalSortEnabled(!seasonalSortEnabled)}
-                    className={`px-3 py-1 text-white text-sm rounded transition-colors ${
-                      seasonalSortEnabled ? 'bg-green-600 hover:bg-green-700' : 'bg-gray-600 hover:bg-gray-700'
-                    }`}
-                  >
-                    {seasonalSortEnabled ? '🌸 제철순' : '제철순'}
-                  </button>
-                  <button
-                    onClick={() => setStatsSortOrder(statsSortOrder === 'desc' ? 'asc' : 'desc')}
-                    className="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition-colors"
-                  >
-                    어려움 {statsSortOrder === 'desc' ? '↓' : '↑'}
-                  </button>
-                </div>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold text-gray-800">카드 학습 통계</h2>
+              <div className="flex space-x-2">
+                <button
+                  onClick={() => setSeasonalSortEnabled(!seasonalSortEnabled)}
+                  className={`px-3 py-1 text-white text-sm rounded transition-colors ${
+                    seasonalSortEnabled ? 'bg-green-600 hover:bg-green-700' : 'bg-gray-600 hover:bg-gray-700'
+                  }`}
+                >
+                  {seasonalSortEnabled ? '🌸 제철순' : '제철순'}
+                </button>
+                <button
+                  onClick={() => setStatsSortOrder(statsSortOrder === 'desc' ? 'asc' : 'desc')}
+                  className="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition-colors"
+                >
+                  어려움 {statsSortOrder === 'desc' ? '↓' : '↑'}
+                </button>
               </div>
-              
-              <div className="overflow-x-auto">
+            </div>
+            
+            <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b-2 border-gray-200">
                       <th className="text-left p-2">어려움</th>
-                      <th className="text-left p-2">정답률</th>
-                      <th className="text-left p-2">횟수</th>
                       <th className="text-left p-2">한자</th>
                       <th className="text-left p-2">가나</th>
                       <th className="text-left p-2">한국어명</th>
@@ -1308,16 +1305,7 @@ const SushiFlashcards = () => {
                               </div>
                             </td>
                             <td className="p-2">
-                              <div className="font-medium">{regularAccuracy}%</div>
-                              {stats && (
-                                <div className="text-xs text-gray-500">
-                                  {stats.correctCount}/{stats.totalCount}
-                                </div>
-                              )}
-                            </td>
-                            <td className="p-2 text-center">{stats ? stats.totalCount : 0}</td>
-                            <td className="p-2">
-                              <div className="text-lg font-bold text-gray-800">{card.한자}</div>
+                              <div className="text-sm font-bold text-gray-800">{card.한자}</div>
                             </td>
                             <td className="p-2">
                               <div className="text-gray-600">{card.가나}</div>
@@ -1337,30 +1325,29 @@ const SushiFlashcards = () => {
                     }
                   </tbody>
                 </table>
+            </div>
+            
+            <div className="mt-6 text-sm text-gray-600">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div className="bg-gray-50 border border-red-300 p-3 rounded">
+                  <div className="text-red-800 font-bold text-xs">매우 어려움</div>
+                  <div className="text-xs text-gray-600">점수 &gt; 1.0</div>
+                </div>
+                <div className="bg-gray-50 border border-red-200 p-3 rounded">
+                  <div className="text-red-600 font-bold text-xs">어려움</div>
+                  <div className="text-xs text-gray-600">0.6 &lt; 점수 &le; 1.0</div>
+                </div>
+                <div className="bg-gray-50 border border-orange-200 p-3 rounded">
+                  <div className="text-orange-600 font-bold text-xs">보통</div>
+                  <div className="text-xs text-gray-600">0.3 &lt; 점수 &le; 0.6</div>
+                </div>
+                <div className="bg-gray-50 border border-green-200 p-3 rounded">
+                  <div className="text-green-600 font-bold text-xs">쉬움</div>
+                  <div className="text-xs text-gray-600">점수 &le; 0.3</div>
+                </div>
               </div>
-              
-              <div className="mt-6 text-sm text-gray-600">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                  <div className="bg-gray-50 border border-red-300 p-3 rounded">
-                    <div className="text-red-800 font-bold text-xs">매우 어려움</div>
-                    <div className="text-xs text-gray-600">점수 &gt; 1.0</div>
-                  </div>
-                  <div className="bg-gray-50 border border-red-200 p-3 rounded">
-                    <div className="text-red-600 font-bold text-xs">어려움</div>
-                    <div className="text-xs text-gray-600">0.6 &lt; 점수 &le; 1.0</div>
-                  </div>
-                  <div className="bg-gray-50 border border-orange-200 p-3 rounded">
-                    <div className="text-orange-600 font-bold text-xs">보통</div>
-                    <div className="text-xs text-gray-600">0.3 &lt; 점수 &le; 0.6</div>
-                  </div>
-                  <div className="bg-gray-50 border border-green-200 p-3 rounded">
-                    <div className="text-green-600 font-bold text-xs">쉬움</div>
-                    <div className="text-xs text-gray-600">점수 &le; 0.3</div>
-                  </div>
-                </div>
-                <div className="mt-3 text-xs text-gray-500">
-                  어려움 지수는 정답률, 학습 횟수, 일관성, 반응시간을 종합하여 계산됩니다.
-                </div>
+              <div className="mt-3 text-xs text-gray-500">
+                어려움 지수는 정답률, 학습 횟수, 일관성, 반응시간을 종합하여 계산됩니다.
               </div>
             </div>
           </div>
